@@ -47,6 +47,8 @@ func _ready():
 	SpawnEnemy.emit(Global.level / 15)
 	calPlayerDamage.emit(player_stat.levelCompleted / 15)
 	
+	print(player_stat.levelCompleted)
+	
 	op4.visible = false
 	op2.visible = false
 	for item in player_stat.items:
@@ -122,9 +124,9 @@ func _on_give_up_pressed():
 
 
 func get_items():
-	print(player_stat.levelCompleted)
+	#print(player_stat.itemsRecieved)
 	
-	if player_stat.levelCompleted % 30 == 0:
+	if player_stat.levelCompleted % 30 == 0 && player_stat.levelCompleted != 0:
 		player_stat.itemsRecieved = player_stat.itemsRecieved * int(player_stat.levelCompleted/30)
 		
 	var scroll = op4.get_node("Items").get_node("ScrollContainer").get_node("VBoxContainer")
@@ -160,11 +162,14 @@ func _on_enemy_enemy_is_dead():
 	finalStat()
 	get_items()
 	op4.get_node("Statement").text = "You win"
+	op4.get_node("You lose").visible = false
 	gameState = false
 
 func _on_player_player_is_dead():
 	finalStat()
 	op4.get_node("Statement").text = "You lose"
+	op4.get_node("You Win").visible = false
+	op4.get_node("Items").visible = false
 	gameState = false
 
 func reduceItem(itemUsed):
@@ -185,7 +190,14 @@ func _on_enemy_item_used_on_enemy(itemUsed):
 
 func _on_next_level_pressed():
 	Global.level += 1;
-	player_stat.levelCompleted += 1
-	savePlayerStat()
 	savePlayerHealth.emit()
+	savePlayerStat()
 	get_tree().reload_current_scene()
+
+
+func _on_end_pressed():
+	player_stat.levelCompleted += Global.level
+	Global.level = 1
+	Global.playerHealth = Global.remeberHealth
+	savePlayerStat()
+	get_tree().change_scene_to_file("res://Scene/main_menu.tscn")

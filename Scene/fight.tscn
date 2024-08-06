@@ -1,16 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6y67whw5cfm1"]
+[gd_scene load_steps=7 format=3 uid="uid://c6y67whw5cfm1"]
 
 [ext_resource type="PackedScene" uid="uid://dd8blfi5lqnk6" path="res://Prefabs/player.tscn" id="1_la0e8"]
 [ext_resource type="PackedScene" uid="uid://buxqo37mjan0l" path="res://Prefabs/enemy.tscn" id="2_0sa56"]
 [ext_resource type="Script" path="res://Script/fgmanager.gd" id="3_iwb70"]
 [ext_resource type="FontFile" uid="uid://ds0s6uj4jvscy" path="res://Assets/PixelOperator8.ttf" id="4_msrqk"]
+[ext_resource type="Texture2D" uid="uid://drnmwk1sn0p0y" path="res://Assets/border.png" id="5_ijtra"]
+[ext_resource type="Texture2D" uid="uid://cy4mne2at3q6w" path="res://Assets/black.png" id="6_lspp8"]
 
 [node name="Fight" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_la0e8")]
 position = Vector2(320, 256)
-health = 100
-damage = 100
+damage = 10
 
 [node name="Enemy" parent="." instance=ExtResource("2_0sa56")]
 position = Vector2(832, 255)
@@ -34,17 +35,26 @@ text = "Level:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Border" type="TextureRect" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+offset_top = 304.0
+offset_right = 1152.0
+offset_bottom = 344.0
+texture = ExtResource("5_ijtra")
+
 [node name="MainOption" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="PanelContainer" type="PanelContainer" parent="MainOption"]
+[node name="TextureRect" type="TextureRect" parent="MainOption"]
 layout_mode = 0
-offset_top = 320.0
+offset_top = 344.0
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 656.0
+texture = ExtResource("6_lspp8")
 
 [node name="Fight" type="Button" parent="MainOption"]
 layout_mode = 0
@@ -89,11 +99,11 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="PanelContainer2" type="PanelContainer" parent="FightOption"]
-layout_mode = 0
-offset_top = 320.0
+[node name="TextureRect" type="TextureRect" parent="FightOption"]
+offset_top = 344.0
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 656.0
+texture = ExtResource("6_lspp8")
 
 [node name="Rock" type="Button" parent="FightOption"]
 layout_mode = 0
@@ -137,11 +147,12 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="PanelContainer" type="PanelContainer" parent="Items Option"]
-layout_mode = 0
-offset_top = 320.0
+[node name="TextureRect" type="TextureRect" parent="Items Option"]
+layout_mode = 2
+offset_top = 344.0
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 656.0
+texture = ExtResource("6_lspp8")
 
 [node name="GridContainer" type="GridContainer" parent="Items Option"]
 layout_mode = 0
@@ -196,11 +207,11 @@ offset_bottom = 216.0
 [node name="VBoxContainer" type="VBoxContainer" parent="Final View/Items/ScrollContainer"]
 layout_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="Final View"]
-layout_mode = 0
-offset_top = 320.0
+[node name="TextureRect" type="TextureRect" parent="Final View"]
+offset_top = 344.0
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 656.0
+texture = ExtResource("6_lspp8")
 
 [node name="Statement" type="Label" parent="Final View"]
 layout_mode = 0
@@ -214,16 +225,35 @@ text = "Your mom"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NextLevel" type="Button" parent="Final View"]
+[node name="You lose" type="Control" parent="Final View"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="end" type="Button" parent="Final View/You lose"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 576.0
+offset_right = 640.0
+offset_bottom = 608.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "End Game"
+
+[node name="You Win" type="Control" parent="Final View"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NextLevel" type="Button" parent="Final View/You Win"]
 layout_mode = 0
 offset_left = 384.0
 offset_top = 576.0
-offset_right = 512.0
+offset_right = 520.0
 offset_bottom = 607.0
 theme_override_fonts/font = ExtResource("4_msrqk")
 text = "Next Level"
 
-[node name="GiveUp2" type="Button" parent="Final View"]
+[node name="GiveUp2" type="Button" parent="Final View/You Win"]
 layout_mode = 0
 offset_left = 640.0
 offset_top = 577.0
@@ -240,6 +270,7 @@ text = "Give Up"
 [connection signal="enemy_is_dead" from="Enemy" to="fgManager" method="_on_enemy_enemy_is_dead"]
 [connection signal="item_Used_On_Enemy" from="Enemy" to="fgManager" method="_on_enemy_item_used_on_enemy"]
 [connection signal="SpawnEnemy" from="fgManager" to="Enemy" method="_on_fg_manager_spawn_enemy"]
+[connection signal="calPlayerDamage" from="fgManager" to="Player" method="_on_fg_manager_cal_player_damage"]
 [connection signal="itemUsed" from="fgManager" to="Player" method="_on_fg_manager_item_used"]
 [connection signal="itemUsed" from="fgManager" to="Enemy" method="_on_fg_manager_item_used"]
 [connection signal="savePlayerHealth" from="fgManager" to="Player" method="_on_fg_manager_save_player_health"]
@@ -251,5 +282,6 @@ text = "Give Up"
 [connection signal="pressed" from="FightOption/Scissors" to="Player" method="_on_scissors_pressed"]
 [connection signal="pressed" from="FightOption/back" to="fgManager" method="_on_back_pressed"]
 [connection signal="pressed" from="Items Option/back" to="fgManager" method="_on_back_pressed"]
-[connection signal="pressed" from="Final View/NextLevel" to="fgManager" method="_on_next_level_pressed"]
-[connection signal="pressed" from="Final View/GiveUp2" to="fgManager" method="_on_give_up_pressed"]
+[connection signal="pressed" from="Final View/You lose/end" to="fgManager" method="_on_end_pressed"]
+[connection signal="pressed" from="Final View/You Win/NextLevel" to="fgManager" method="_on_next_level_pressed"]
+[connection signal="pressed" from="Final View/You Win/GiveUp2" to="fgManager" method="_on_give_up_pressed"]

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://oj3p0w0f0gux"]
+
+[ext_resource type="AudioStream" uid="uid://c1qrn5m5udp24" path="res://Assets/i-wanna-jump-off-a-cliff.mp3" id="1_wjbg4"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_wjbg4")
+autoplay = true

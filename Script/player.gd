@@ -6,34 +6,30 @@ signal player_item_used(itemUsed: String)
 
 @export var health : int:
 	set(value):
-		health = clamp(value, 0, 100)
+		health = clamp(value, 0, 1000)
+		
+var currentMaxHealth = 100
+
 @export var damage : int
 
 @onready var manager = %fgManager
 @onready var Plabel = $Label
 
+
 var is_buff = false
 var buff_count = 0
-
-func _ready():
-	print(Global.level);
-	if Global.level > 1:
-		health = Global.playerHealth
-	else:
-		Global.remeberHealth = health
-		Global.playerHealth = health
-	
-	Plabel.text = "Health: " + str(health)
-	manager.playerDamage = damage;
 
 func take_damage():
 	health -= manager.enemyDamage;
 	Plabel.text = "Health: " + str(health)
 	if health <= 0:
+		get_node("AnimatedSprite2D").play("die")
 		player_is_dead.emit()
 	
 func heal(amount : int):
 	health += amount;
+	if(health > currentMaxHealth):
+		health = currentMaxHealth
 	Plabel.text = "Health: " + str(health)
 	
 func attack(option: int):
@@ -68,7 +64,7 @@ func _on_fg_manager_item_used(itemUsed):
 		
 		match type:
 			Global.itemType.heal:
-				if(health < 100):
+				if(health < currentMaxHealth):
 					heal(amout)
 					player_item_used.emit(itemUsed)
 			
@@ -82,3 +78,18 @@ func _on_fg_manager_item_used(itemUsed):
 
 func _on_fg_manager_save_player_health():
 	Global.playerHealth = health
+
+func _on_fg_manager_cal_player_damage(copx):
+	damage = damage + (10 * copx)
+	
+	currentMaxHealth = currentMaxHealth + (100 * copx);
+	
+	if Global.level > 1:
+		health = Global.playerHealth
+	else:
+		health = currentMaxHealth
+		Global.remeberHealth = health
+		Global.playerHealth = health
+	
+	Plabel.text = "Health: " + str(health)
+	manager.playerDamage = damage;

@@ -1,7 +1,7 @@
 class_name playerStat
 extends Resource
 
-@export var levelCompleted = 1;
+@export var levelCompleted = 0;
 @export var itemsRecieved = 2;
 @export var items = {
 	"Small Med": {"stat": [Global.itemType.heal, 5], "amount": 10},

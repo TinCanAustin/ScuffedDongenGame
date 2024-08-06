@@ -104,7 +104,6 @@ func _on_fg_manager_spawn_enemy(copx):
 			type = Enemytype.mythic
 		_:
 			type = randi_range(0, Enemytype.mythic)
-	print(type)
 	
 	var chosenEnemy = randi_range(0,Enemies[type].size()-1);
 	var node = Enemies[type][chosenEnemy][0].instantiate()
