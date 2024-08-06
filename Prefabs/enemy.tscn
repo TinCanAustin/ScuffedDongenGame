@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://buxqo37mjan0l"]
+
+[ext_resource type="Script" path="res://Script/enemy.gd" id="1_xv1ct"]
+[ext_resource type="FontFile" uid="uid://ds0s6uj4jvscy" path="res://Assets/PixelOperator8.ttf" id="2_bmd4q"]
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_xv1ct")
+health = 100
+
+[node name="Label" type="Label" parent="."]
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_bmd4q")
+text = "Health: 100"
+horizontal_alignment = 1
+vertical_alignment = 1

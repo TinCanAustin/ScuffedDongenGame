@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://cs0vrlkl20jur"]
+
+[ext_resource type="FontFile" uid="uid://ds0s6uj4jvscy" path="res://Assets/PixelOperator8.ttf" id="1_01j3b"]
+
+[node name="Item" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 24.0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 72.0
+offset_bottom = 72.0
+
+[node name="ItemButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 48.0
+
+[node name="Amount" type="Label" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 48.0
+offset_bottom = 47.0
+theme_override_fonts/font = ExtResource("1_01j3b")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -40.0
+offset_top = 48.0
+offset_right = 88.0
+offset_bottom = 71.0
+theme_override_fonts/font = ExtResource("1_01j3b")
+text = "Name"
+horizontal_alignment = 1
+autowrap_mode = 2

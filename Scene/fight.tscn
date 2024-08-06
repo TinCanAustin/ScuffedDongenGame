@@ -1,0 +1,255 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6y67whw5cfm1"]
+
+[ext_resource type="PackedScene" uid="uid://dd8blfi5lqnk6" path="res://Prefabs/player.tscn" id="1_la0e8"]
+[ext_resource type="PackedScene" uid="uid://buxqo37mjan0l" path="res://Prefabs/enemy.tscn" id="2_0sa56"]
+[ext_resource type="Script" path="res://Script/fgmanager.gd" id="3_iwb70"]
+[ext_resource type="FontFile" uid="uid://ds0s6uj4jvscy" path="res://Assets/PixelOperator8.ttf" id="4_msrqk"]
+
+[node name="Fight" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_la0e8")]
+position = Vector2(320, 256)
+health = 100
+damage = 100
+
+[node name="Enemy" parent="." instance=ExtResource("2_0sa56")]
+position = Vector2(832, 255)
+damage = 10
+
+[node name="fgManager" type="Node" parent="." node_paths=PackedStringArray("op1", "op2", "op3", "op4")]
+unique_name_in_owner = true
+script = ExtResource("3_iwb70")
+op1 = NodePath("../MainOption")
+op2 = NodePath("../FightOption")
+op3 = NodePath("../Items Option")
+op4 = NodePath("../Final View")
+
+[node name="Level" type="Label" parent="fgManager"]
+offset_left = 384.0
+offset_right = 768.0
+offset_bottom = 63.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+theme_override_font_sizes/font_size = 30
+text = "Level:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainOption" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="MainOption"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Fight" type="Button" parent="MainOption"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 384.0
+offset_right = 384.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Fight"
+
+[node name="Items" type="Button" parent="MainOption"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 384.0
+offset_right = 640.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Items"
+
+[node name="GiveUp" type="Button" parent="MainOption"]
+layout_mode = 0
+offset_left = 768.0
+offset_top = 384.0
+offset_right = 896.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Give Up"
+
+[node name="ActionTaken" type="Label" parent="MainOption"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 568.0
+offset_right = 768.0
+offset_bottom = 600.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FightOption" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="FightOption"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Rock" type="Button" parent="FightOption"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 384.0
+offset_right = 384.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Rock"
+
+[node name="Paper" type="Button" parent="FightOption"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 384.0
+offset_right = 640.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Paper"
+
+[node name="Scissors" type="Button" parent="FightOption"]
+layout_mode = 0
+offset_left = 768.0
+offset_top = 384.0
+offset_right = 896.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Scissors"
+
+[node name="back" type="Button" parent="FightOption"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 568.0
+offset_right = 640.0
+offset_bottom = 600.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Back"
+
+[node name="Items Option" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Items Option"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="GridContainer" type="GridContainer" parent="Items Option"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 376.0
+offset_right = 1088.0
+offset_bottom = 576.0
+theme_override_constants/h_separation = 125
+theme_override_constants/v_separation = 100
+columns = 8
+
+[node name="back" type="Button" parent="Items Option"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 568.0
+offset_right = 640.0
+offset_bottom = 600.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Back"
+
+[node name="Final View" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Items" type="Panel" parent="Final View"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 448.0
+offset_top = 64.0
+offset_right = 704.0
+offset_bottom = 312.0
+
+[node name="Label" type="Label" parent="Final View/Items"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 220.0
+offset_bottom = 48.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Items Receved"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Final View/Items"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 64.0
+offset_right = 232.0
+offset_bottom = 216.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Final View/Items/ScrollContainer"]
+layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="Final View"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Statement" type="Label" parent="Final View"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 384.0
+offset_right = 960.0
+offset_bottom = 576.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+theme_override_font_sizes/font_size = 100
+text = "Your mom"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextLevel" type="Button" parent="Final View"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 576.0
+offset_right = 512.0
+offset_bottom = 607.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Next Level"
+
+[node name="GiveUp2" type="Button" parent="Final View"]
+layout_mode = 0
+offset_left = 640.0
+offset_top = 577.0
+offset_right = 768.0
+offset_bottom = 608.0
+theme_override_fonts/font = ExtResource("4_msrqk")
+text = "Give Up"
+
+[connection signal="on_attack" from="Player" to="Enemy" method="_on_player_on_attack"]
+[connection signal="player_is_dead" from="Player" to="fgManager" method="_on_player_player_is_dead"]
+[connection signal="player_item_used" from="Player" to="fgManager" method="_on_player_player_item_used"]
+[connection signal="enemy_action_complete" from="Enemy" to="Player" method="_on_enemy_enemy_action_complete"]
+[connection signal="enemy_action_complete" from="Enemy" to="fgManager" method="_on_enemy_enemy_action_complete"]
+[connection signal="enemy_is_dead" from="Enemy" to="fgManager" method="_on_enemy_enemy_is_dead"]
+[connection signal="item_Used_On_Enemy" from="Enemy" to="fgManager" method="_on_enemy_item_used_on_enemy"]
+[connection signal="SpawnEnemy" from="fgManager" to="Enemy" method="_on_fg_manager_spawn_enemy"]
+[connection signal="itemUsed" from="fgManager" to="Player" method="_on_fg_manager_item_used"]
+[connection signal="itemUsed" from="fgManager" to="Enemy" method="_on_fg_manager_item_used"]
+[connection signal="savePlayerHealth" from="fgManager" to="Player" method="_on_fg_manager_save_player_health"]
+[connection signal="pressed" from="MainOption/Fight" to="fgManager" method="_on_fight_pressed"]
+[connection signal="pressed" from="MainOption/Items" to="fgManager" method="_on_items_pressed"]
+[connection signal="pressed" from="MainOption/GiveUp" to="fgManager" method="_on_give_up_pressed"]
+[connection signal="pressed" from="FightOption/Rock" to="Player" method="_on_rock_pressed"]
+[connection signal="pressed" from="FightOption/Paper" to="Player" method="_on_paper_pressed"]
+[connection signal="pressed" from="FightOption/Scissors" to="Player" method="_on_scissors_pressed"]
+[connection signal="pressed" from="FightOption/back" to="fgManager" method="_on_back_pressed"]
+[connection signal="pressed" from="Items Option/back" to="fgManager" method="_on_back_pressed"]
+[connection signal="pressed" from="Final View/NextLevel" to="fgManager" method="_on_next_level_pressed"]
+[connection signal="pressed" from="Final View/GiveUp2" to="fgManager" method="_on_give_up_pressed"]

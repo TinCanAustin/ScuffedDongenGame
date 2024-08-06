@@ -1,0 +1,158 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6y67whw5cfm1"]
+
+[ext_resource type="PackedScene" uid="uid://dd8blfi5lqnk6" path="res://Prefabs/player.tscn" id="1_la0e8"]
+[ext_resource type="PackedScene" uid="uid://buxqo37mjan0l" path="res://Prefabs/enemy.tscn" id="2_0sa56"]
+[ext_resource type="Script" path="res://Script/fgmanager.gd" id="3_iwb70"]
+
+[node name="Fight" type="Node2D"]
+
+[node name="Player" parent="." node_paths=PackedStringArray("inventoryUI") instance=ExtResource("1_la0e8")]
+position = Vector2(320, 256)
+damage = 10
+inventoryUI = NodePath("../Items Option/GridContainer")
+
+[node name="Enemy" parent="." instance=ExtResource("2_0sa56")]
+position = Vector2(832, 255)
+damage = 10
+
+[node name="fgManager" type="Node" parent="." node_paths=PackedStringArray("op1", "op2", "op3")]
+unique_name_in_owner = true
+script = ExtResource("3_iwb70")
+op1 = NodePath("../MainOption")
+op2 = NodePath("../FightOption")
+op3 = NodePath("../Items Option")
+
+[node name="Button" type="Button" parent="fgManager"]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="MainOption" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="MainOption"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Fight" type="Button" parent="MainOption"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 384.0
+offset_right = 384.0
+offset_bottom = 512.0
+text = "Fight"
+
+[node name="Items" type="Button" parent="MainOption"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 384.0
+offset_right = 640.0
+offset_bottom = 512.0
+text = "Items"
+
+[node name="GiveUp" type="Button" parent="MainOption"]
+layout_mode = 0
+offset_left = 768.0
+offset_top = 384.0
+offset_right = 896.0
+offset_bottom = 512.0
+text = "Give Up"
+
+[node name="ActionTaken" type="Label" parent="MainOption"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 568.0
+offset_right = 768.0
+offset_bottom = 600.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FightOption" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="FightOption"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="Rock" type="Button" parent="FightOption"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 384.0
+offset_right = 384.0
+offset_bottom = 512.0
+text = "Rock"
+
+[node name="Paper" type="Button" parent="FightOption"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 384.0
+offset_right = 640.0
+offset_bottom = 512.0
+text = "Paper"
+
+[node name="Scissors" type="Button" parent="FightOption"]
+layout_mode = 0
+offset_left = 768.0
+offset_top = 384.0
+offset_right = 896.0
+offset_bottom = 512.0
+text = "Scissors"
+
+[node name="back" type="Button" parent="FightOption"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 568.0
+offset_right = 640.0
+offset_bottom = 600.0
+text = "Back"
+
+[node name="Items Option" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Items Option"]
+layout_mode = 0
+offset_top = 320.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="GridContainer" type="GridContainer" parent="Items Option"]
+layout_mode = 0
+offset_left = 112.0
+offset_top = 376.0
+offset_right = 1088.0
+offset_bottom = 576.0
+theme_override_constants/h_separation = 125
+theme_override_constants/v_separation = 100
+columns = 8
+
+[node name="back" type="Button" parent="Items Option"]
+layout_mode = 0
+offset_left = 512.0
+offset_top = 568.0
+offset_right = 640.0
+offset_bottom = 600.0
+text = "Back"
+
+[connection signal="on_attack" from="Player" to="Enemy" method="_on_player_on_attack"]
+[connection signal="enemy_action_complete" from="Enemy" to="Player" method="_on_enemy_enemy_action_complete"]
+[connection signal="enemy_action_complete" from="Enemy" to="fgManager" method="_on_enemy_enemy_action_complete"]
+[connection signal="itemUsed" from="fgManager" to="Player" method="_on_fg_manager_item_used"]
+[connection signal="pressed" from="MainOption/Fight" to="fgManager" method="_on_fight_pressed"]
+[connection signal="pressed" from="MainOption/Items" to="fgManager" method="_on_items_pressed"]
+[connection signal="pressed" from="FightOption/Rock" to="Player" method="_on_rock_pressed"]
+[connection signal="pressed" from="FightOption/Paper" to="Player" method="_on_paper_pressed"]
+[connection signal="pressed" from="FightOption/Scissors" to="Player" method="_on_scissors_pressed"]
+[connection signal="pressed" from="FightOption/back" to="fgManager" method="_on_back_pressed"]
+[connection signal="pressed" from="Items Option/back" to="fgManager" method="_on_back_pressed"]

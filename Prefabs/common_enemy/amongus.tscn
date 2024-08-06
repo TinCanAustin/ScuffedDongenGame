@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=3 uid="uid://pu64cd51lxbk"]
+
+[ext_resource type="Texture2D" uid="uid://jph652inm103" path="res://Assets/amongus.png" id="1_4873r"]
+[ext_resource type="Texture2D" uid="uid://cewxmb4fpx0s0" path="res://Assets/amongus-die.png" id="2_d11x1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o1lri"]
+atlas = ExtResource("1_4873r")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu38s"]
+atlas = ExtResource("1_4873r")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2m6u1"]
+atlas = ExtResource("1_4873r")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhvo2"]
+atlas = ExtResource("1_4873r")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cuix6"]
+atlas = ExtResource("1_4873r")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3luj0"]
+atlas = ExtResource("1_4873r")
+region = Rect2(1000, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yl21d"]
+atlas = ExtResource("1_4873r")
+region = Rect2(1200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b3i0n"]
+atlas = ExtResource("2_d11x1")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnnal"]
+atlas = ExtResource("2_d11x1")
+region = Rect2(200, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h23mg"]
+atlas = ExtResource("2_d11x1")
+region = Rect2(400, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0msg"]
+atlas = ExtResource("2_d11x1")
+region = Rect2(600, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ty0or"]
+atlas = ExtResource("2_d11x1")
+region = Rect2(800, 0, 200, 200)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yhyvk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o1lri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gu38s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2m6u1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yhvo2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cuix6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3luj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yl21d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b3i0n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnnal")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h23mg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a0msg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ty0or")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}]
+
+[node name="amongus" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_yhyvk")
+animation = &"die"
+autoplay = "default"
+frame = 4
+frame_progress = 1.0
