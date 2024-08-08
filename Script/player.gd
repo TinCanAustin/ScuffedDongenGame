@@ -15,7 +15,6 @@ var currentMaxHealth = 100
 @onready var manager = %fgManager
 @onready var Plabel = $Label
 
-
 var is_buff = false
 var buff_count = 0
 
@@ -32,6 +31,11 @@ func heal(amount : int):
 		health = currentMaxHealth
 	Plabel.text = "Health: " + str(health)
 	
+func disable_indicators():
+	manager.inidcator.get_node("powerUp").visible = false
+	manager.inidcator.get_node("powerUp+").visible = false
+	manager.inidcator.get_node("oneshot").visible = false
+	
 func attack(option: int):
 	if manager.state == 0:
 		if is_buff == true:
@@ -39,6 +43,7 @@ func attack(option: int):
 			if buff_count == 5:
 				manager.playerDamage = damage;
 				is_buff = false
+				disable_indicators()
 		on_attack.emit(option);
 
 func _on_rock_pressed():
@@ -73,6 +78,17 @@ func _on_fg_manager_item_used(itemUsed):
 					is_buff = true
 					buff_count = 0
 					manager.playerDamage = damage + amout;
+					
+					match amout:
+						10:
+							manager.inidcator.get_node("powerUp").visible = true
+						30:
+							manager.inidcator.get_node("powerUp").visible = true
+						50:
+							manager.inidcator.get_node("powerUp+").visible = true
+						100:
+							manager.inidcator.get_node("oneshot").visible = true
+					
 					player_item_used.emit(itemUsed)
 
 

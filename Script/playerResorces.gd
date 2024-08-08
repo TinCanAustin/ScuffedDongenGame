@@ -3,6 +3,8 @@ extends Resource
 
 @export var levelCompleted = 0;
 @export var itemsRecieved = 2;
+@export var onePlayDone = false;
+@export var heightScore = 0;
 @export var items = {
 	"Small Med": {"stat": [Global.itemType.heal, 5], "amount": 10},
 	"Small+ Med": {"stat": [Global.itemType.heal, 10], "amount": 0},

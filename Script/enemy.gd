@@ -93,22 +93,27 @@ func _on_fg_manager_item_used(itemUsed):
 				is_die()
 
 
-func _on_fg_manager_spawn_enemy(copx):	
+func _on_fg_manager_spawn_enemy(copx, player_s):	
 	var type : int
 	match copx:
 		0:
 			type = Enemytype.common
 		1:
 			type = Enemytype.unordinary
-		3:
+		2:
 			type = Enemytype.mythic
 		_:
 			type = randi_range(0, Enemytype.mythic)
+	print(type)
 	
 	var chosenEnemy = randi_range(0,Enemies[type].size()-1);
 	var node = Enemies[type][chosenEnemy][0].instantiate()
-	health = Enemies[type][chosenEnemy][1]
-	damage = Enemies[type][chosenEnemy][2]
+	if(player_s.onePlayDone == true):
+		health = Enemies[type][chosenEnemy][1] + ( 50 * int(player_s.levelCompleted / 15))
+		damage = Enemies[type][chosenEnemy][2] + ( 8 * int(player_s.levelCompleted / 15))
+	else:
+		health = Enemies[type][chosenEnemy][1]
+		damage = Enemies[type][chosenEnemy][2]
 	
 	Elabel.text = "Health: " + str(health)
 	manager.enemyDamage = damage;

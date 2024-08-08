@@ -2,7 +2,7 @@ extends Node
 
 signal itemUsed(itemUsed: String)
 signal savePlayerHealth()
-signal SpawnEnemy(copx: int)
+signal SpawnEnemy(copx: int, player_s: playerStat)
 signal calPlayerDamage(copx: int)
 
 const font = preload("res://Assets/PixelOperator8.ttf")
@@ -11,6 +11,8 @@ const font = preload("res://Assets/PixelOperator8.ttf")
 @export var op2 : Control
 @export var op3 : Control
 @export var op4 : Control
+
+@export var inidcator : Control
 
 enum action {fight, inventory, run, idel}
 
@@ -44,7 +46,7 @@ func loadPlayerStat():
 
 func _ready():
 	loadPlayerStat()
-	SpawnEnemy.emit(Global.level / 15)
+	SpawnEnemy.emit(Global.level / 15, player_stat)
 	calPlayerDamage.emit(player_stat.levelCompleted / 15)
 	
 	print(player_stat.levelCompleted)
@@ -124,10 +126,8 @@ func _on_give_up_pressed():
 
 
 func get_items():
-	#print(player_stat.itemsRecieved)
-	
-	if player_stat.levelCompleted % 30 == 0 && player_stat.levelCompleted != 0:
-		player_stat.itemsRecieved = player_stat.itemsRecieved * int(player_stat.levelCompleted/30)
+	player_stat.itemsRecieved = 2 * (int(player_stat.levelCompleted/30) + 1)
+	print(player_stat.itemsRecieved)
 		
 	var scroll = op4.get_node("Items").get_node("ScrollContainer").get_node("VBoxContainer")
 	
@@ -190,13 +190,22 @@ func _on_enemy_item_used_on_enemy(itemUsed):
 
 func _on_next_level_pressed():
 	Global.level += 1;
-	savePlayerHealth.emit()
-	savePlayerStat()
-	get_tree().reload_current_scene()
+	
+	if(player_stat.onePlayDone == false && Global.level >= 45):
+		player_stat.onePlayDone = true
+		savePlayerStat()
+		get_tree().change_scene_to_file("res://Scene/firstComplete.tscn")
+	else:
+		savePlayerHealth.emit()
+		savePlayerStat()
+		get_tree().reload_current_scene()
 
 
 func _on_end_pressed():
 	player_stat.levelCompleted += Global.level
+	if(player_stat.heightScore < Global.level):
+		player_stat.heightScore = Global.level
+	
 	Global.level = 1
 	Global.playerHealth = Global.remeberHealth
 	savePlayerStat()

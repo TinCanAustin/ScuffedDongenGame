@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://djx8uudii2vhh"]
+
+[ext_resource type="Script" path="res://Script/end.gd" id="1_gx8ob"]
+[ext_resource type="Texture2D" uid="uid://d121274psxf48" path="res://Assets/brown.png" id="2_8r8qo"]
+[ext_resource type="FontFile" uid="uid://ds0s6uj4jvscy" path="res://Assets/PixelOperator8.ttf" id="3_4k4e4"]
+
+[node name="FirstComplete" type="Node2D"]
+script = ExtResource("1_gx8ob")
+
+[node name="bg" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 656.0
+texture = ExtResource("2_8r8qo")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 256.0
+offset_top = 128.0
+offset_right = 952.0
+offset_bottom = 384.0
+theme_override_fonts/font = ExtResource("3_4k4e4")
+theme_override_font_sizes/font_size = 40
+text = "Your done
+
+Good job
+
+Dirnk Water"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="End" type="Button" parent="."]
+offset_left = 704.0
+offset_top = 448.0
+offset_right = 896.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("3_4k4e4")
+text = "End"
+
+[node name="playAgain" type="Button" parent="."]
+offset_left = 320.0
+offset_top = 448.0
+offset_right = 512.0
+offset_bottom = 512.0
+theme_override_fonts/font = ExtResource("3_4k4e4")
+text = "Continue
+"
+
+[connection signal="pressed" from="End" to="." method="_on_end_pressed"]
+[connection signal="pressed" from="playAgain" to="." method="_on_play_again_pressed"]

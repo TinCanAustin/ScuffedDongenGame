@@ -1,14 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwc8pn0xt31fy"]
+[gd_scene load_steps=4 format=3 uid="uid://cwc8pn0xt31fy"]
 
 [ext_resource type="Script" path="res://Script/menu.gd" id="1_th18k"]
 [ext_resource type="FontFile" uid="uid://ds0s6uj4jvscy" path="res://Assets/PixelOperator8.ttf" id="2_50uki"]
+[ext_resource type="Texture2D" uid="uid://d121274psxf48" path="res://Assets/brown.png" id="2_mb3vy"]
 
 [node name="Main Menu" type="Node2D"]
 script = ExtResource("1_th18k")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="bg" type="TextureRect" parent="."]
 offset_right = 1152.0
-offset_bottom = 648.0
+offset_bottom = 656.0
+texture = ExtResource("2_mb3vy")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_left = 384.0
@@ -27,6 +29,29 @@ text = "Play"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_50uki")
 text = "Quit"
+
+[node name="notDone" type="Label" parent="."]
+visible = false
+offset_left = 384.0
+offset_top = 576.0
+offset_right = 768.0
+offset_bottom = 640.0
+theme_override_fonts/font = ExtResource("2_50uki")
+text = "Finish the game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="done" type="Label" parent="."]
+visible = false
+offset_left = 384.0
+offset_top = 552.0
+offset_right = 768.0
+offset_bottom = 640.0
+theme_override_fonts/font = ExtResource("2_50uki")
+text = "Highets Level: 
+
+Levels played: "
+horizontal_alignment = 1
 
 [connection signal="pressed" from="VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_quit_pressed"]

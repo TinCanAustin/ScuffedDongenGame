@@ -1,13 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://c6y67whw5cfm1"]
+[gd_scene load_steps=11 format=3 uid="uid://c6y67whw5cfm1"]
 
+[ext_resource type="Texture2D" uid="uid://d121274psxf48" path="res://Assets/brown.png" id="1_8vjjg"]
 [ext_resource type="PackedScene" uid="uid://dd8blfi5lqnk6" path="res://Prefabs/player.tscn" id="1_la0e8"]
 [ext_resource type="PackedScene" uid="uid://buxqo37mjan0l" path="res://Prefabs/enemy.tscn" id="2_0sa56"]
 [ext_resource type="Script" path="res://Script/fgmanager.gd" id="3_iwb70"]
 [ext_resource type="FontFile" uid="uid://ds0s6uj4jvscy" path="res://Assets/PixelOperator8.ttf" id="4_msrqk"]
 [ext_resource type="Texture2D" uid="uid://drnmwk1sn0p0y" path="res://Assets/border.png" id="5_ijtra"]
 [ext_resource type="Texture2D" uid="uid://cy4mne2at3q6w" path="res://Assets/black.png" id="6_lspp8"]
+[ext_resource type="Texture2D" uid="uid://dogcnyuqxsxxy" path="res://Assets/atkUp.png" id="8_8mwet"]
+[ext_resource type="Texture2D" uid="uid://dgp5o0newlu0f" path="res://Assets/atkUp+.png" id="9_ebehq"]
+[ext_resource type="Texture2D" uid="uid://bxbrd3cccvasw" path="res://Assets/god.png" id="10_e1bl4"]
 
 [node name="Fight" type="Node2D"]
+
+[node name="bg" type="TextureRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 656.0
+texture = ExtResource("1_8vjjg")
 
 [node name="Player" parent="." instance=ExtResource("1_la0e8")]
 position = Vector2(320, 256)
@@ -17,13 +26,14 @@ damage = 10
 position = Vector2(832, 255)
 damage = 10
 
-[node name="fgManager" type="Node" parent="." node_paths=PackedStringArray("op1", "op2", "op3", "op4")]
+[node name="fgManager" type="Node" parent="." node_paths=PackedStringArray("op1", "op2", "op3", "op4", "inidcator")]
 unique_name_in_owner = true
 script = ExtResource("3_iwb70")
 op1 = NodePath("../MainOption")
 op2 = NodePath("../FightOption")
 op3 = NodePath("../Items Option")
 op4 = NodePath("../Final View")
+inidcator = NodePath("../Indicator")
 
 [node name="Level" type="Label" parent="fgManager"]
 offset_left = 384.0
@@ -38,9 +48,9 @@ vertical_alignment = 1
 [node name="Border" type="TextureRect" parent="."]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(0, 0, 0, 1)
-offset_top = 304.0
+offset_top = 312.0
 offset_right = 1152.0
-offset_bottom = 344.0
+offset_bottom = 352.0
 texture = ExtResource("5_ijtra")
 
 [node name="MainOption" type="Control" parent="."]
@@ -51,7 +61,7 @@ offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="MainOption"]
 layout_mode = 0
-offset_top = 344.0
+offset_top = 352.0
 offset_right = 1152.0
 offset_bottom = 656.0
 texture = ExtResource("6_lspp8")
@@ -100,7 +110,8 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="FightOption"]
-offset_top = 344.0
+layout_mode = 0
+offset_top = 352.0
 offset_right = 1152.0
 offset_bottom = 656.0
 texture = ExtResource("6_lspp8")
@@ -149,7 +160,7 @@ offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="Items Option"]
 layout_mode = 2
-offset_top = 344.0
+offset_top = 352.0
 offset_right = 1152.0
 offset_bottom = 656.0
 texture = ExtResource("6_lspp8")
@@ -185,7 +196,7 @@ layout_mode = 0
 offset_left = 448.0
 offset_top = 64.0
 offset_right = 704.0
-offset_bottom = 312.0
+offset_bottom = 304.0
 
 [node name="Label" type="Label" parent="Final View/Items"]
 layout_mode = 0
@@ -208,7 +219,8 @@ offset_bottom = 216.0
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Final View"]
-offset_top = 344.0
+layout_mode = 0
+offset_top = 352.0
 offset_right = 1152.0
 offset_bottom = 656.0
 texture = ExtResource("6_lspp8")
@@ -261,6 +273,31 @@ offset_right = 768.0
 offset_bottom = 608.0
 theme_override_fonts/font = ExtResource("4_msrqk")
 text = "Give Up"
+
+[node name="Indicator" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1088.0
+offset_right = 1152.0
+offset_bottom = 64.0
+
+[node name="powerUp" type="Sprite2D" parent="Indicator"]
+visible = false
+position = Vector2(-32, 32)
+scale = Vector2(2.45, 2.45)
+texture = ExtResource("8_8mwet")
+
+[node name="powerUp+" type="Sprite2D" parent="Indicator"]
+visible = false
+position = Vector2(-32, 32)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("9_ebehq")
+
+[node name="oneshot" type="Sprite2D" parent="Indicator"]
+visible = false
+position = Vector2(-33, 31)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("10_e1bl4")
 
 [connection signal="on_attack" from="Player" to="Enemy" method="_on_player_on_attack"]
 [connection signal="player_is_dead" from="Player" to="fgManager" method="_on_player_player_is_dead"]
